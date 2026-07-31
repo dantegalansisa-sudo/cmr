@@ -5,6 +5,18 @@ Demo visual del ecosistema digital de **Centro Médico Real**: sitio público + 
 > **Prototipo de demostración.** No tiene backend: todos los datos salen de `src/data/mockData.ts`.
 > Los formularios no envían nada y los filtros de tablas son visuales.
 
+## Acceso al entorno de desarrollo
+
+El sitio está detrás de una pantalla de acceso con contraseña (`src/components/Gate.tsx`).
+
+> ⚠️ **Esta pantalla no es seguridad real.** La validación ocurre en el navegador,
+> así que el hash de la contraseña viaja en el bundle y alguien con conocimientos técnicos
+> puede saltársela. Sirve para que quien abra el enlace vea que el proyecto está en
+> construcción, no para proteger información sensible.
+>
+> Para restringir el acceso de verdad hay que activar **Deployment Protection** en Vercel
+> (Settings → Deployment Protection), que se resuelve en el servidor antes de servir nada.
+
 ## Cómo ejecutarlo
 
 ```bash

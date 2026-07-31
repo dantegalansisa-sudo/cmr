@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
+import Gate, { accesoConcedido } from './components/Gate'
 import Landing from './views/Landing'
 import Dashboard from './views/Dashboard'
 import Citas from './views/Citas'
@@ -29,6 +30,7 @@ export type View =
 
 export default function App() {
   const [view, setView] = useState<View>('landing')
+  const [acceso, setAcceso] = useState(accesoConcedido)
 
   const navigate = (v: View) => {
     setView(v)
@@ -53,6 +55,9 @@ export default function App() {
   useEffect(() => {
     if (view !== 'landing') document.body.classList.remove('has-custom-cursor')
   }, [view])
+
+  // Sin acceso no se monta nada del sitio
+  if (!acceso) return <Gate onUnlock={() => setAcceso(true)} />
 
   return (
     <div className="app">

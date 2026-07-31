@@ -1,0 +1,590 @@
+/* ═══════════════════════════════════════════════════════════
+   PUERTA DE ACCESO — entorno de desarrollo (marca LINKDICOM)
+   ═══════════════════════════════════════════════════════════ */
+
+.gate {
+  --naranja: #f04e23;
+  --naranja-suave: #fff1ec;
+  --azul: #0d2c5e;
+  --azul-medio: #1f5fb0;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: #f7fafd;
+  overflow: hidden;
+}
+
+.gate-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.gate-bg img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 58%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% center;
+}
+
+/* Velo diagonal: aclara el lado del texto y deja ver el edificio a la derecha */
+.gate-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    #ffffff 0%,
+    #ffffff 42%,
+    rgba(255, 255, 255, 0.84) 50%,
+    rgba(255, 255, 255, 0.3) 66%,
+    rgba(255, 255, 255, 0.04) 82%,
+    rgba(13, 44, 94, 0.1) 100%
+  );
+}
+
+.gate-body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 30px 32px;
+}
+
+.gate-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  gap: 56px;
+  align-items: center;
+}
+
+/* ── Columna izquierda ────────────────────────────────────── */
+
+.gate-linkdicom {
+  height: 56px;
+  width: auto;
+  margin-bottom: 22px;
+}
+
+.gate-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--naranja);
+}
+
+.gate-title {
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--azul);
+  margin-top: 4px;
+}
+
+.gate-title span {
+  color: var(--naranja);
+}
+
+.gate-title::after {
+  content: '';
+  display: block;
+  width: 62px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--naranja);
+  margin: 15px 0 13px;
+}
+
+.gate-lead {
+  font-size: 17px;
+  color: #4a5b73;
+  line-height: 1.55;
+  max-width: 460px;
+}
+
+.gate-lead strong {
+  color: var(--azul-medio);
+  font-weight: 600;
+}
+
+.gate-note {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #ffd9cc;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 18px 20px;
+  margin-top: 20px;
+  max-width: 560px;
+}
+
+.gate-note-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--naranja-suave);
+  color: var(--naranja);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gate-note p {
+  font-size: 14px;
+  color: #44536b;
+  line-height: 1.55;
+}
+
+.gate-progress-card {
+  background: #fff;
+  border: 1px solid #e4ecf5;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-top: 18px;
+  max-width: 560px;
+  box-shadow: 0 8px 28px rgba(13, 44, 94, 0.07);
+}
+
+.gate-progress-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.gate-progress-head h2 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--azul);
+}
+
+.gate-pct {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--naranja);
+  line-height: 1;
+}
+
+.gate-bar {
+  height: 9px;
+  border-radius: 999px;
+  background: #e9eff6;
+  overflow: hidden;
+  margin: 12px 0 14px;
+}
+
+.gate-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--naranja) 0%, #ff8a3d 100%);
+}
+
+.gate-tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.gate-tasks li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 0;
+}
+
+.gate-tasks li + li {
+  border-top: 1px solid #eef3f8;
+}
+
+.gate-task-icon {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.gate-task-label {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: #253853;
+}
+
+.gate-task-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.gate-task-estado.completado {
+  color: #16a34a;
+}
+.gate-task-estado.proceso {
+  color: var(--naranja);
+}
+.gate-task-estado.pendiente {
+  color: #94a3b8;
+}
+
+/* ── Tarjeta de acceso ────────────────────────────────────── */
+
+.gate-card {
+  background: #fff;
+  border-radius: 22px;
+  padding: 30px 32px 24px;
+  box-shadow: 0 24px 60px rgba(13, 44, 94, 0.16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.gate-cmr {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+}
+
+.gate-cmr-claim {
+  font-size: 13.5px;
+  color: #5b6b82;
+  margin-top: 10px;
+}
+
+.gate-divider {
+  width: 54px;
+  height: 2px;
+  background: var(--naranja);
+  border-radius: 2px;
+  margin: 18px 0 16px;
+}
+
+.gate-access {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--azul);
+}
+
+.gate-env {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--naranja);
+  margin-top: 3px;
+}
+
+.gate-field {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-top: 24px;
+}
+
+.gate-field-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #253853;
+  margin-bottom: 8px;
+}
+
+.gate-field-head svg {
+  color: var(--azul-medio);
+}
+
+.gate-input {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e2e9f2;
+  border-radius: 12px;
+  background: #fbfdff;
+  padding-right: 6px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gate-input:focus-within {
+  border-color: var(--naranja);
+  box-shadow: 0 0 0 4px rgba(240, 78, 35, 0.1);
+}
+
+.gate-input input {
+  flex: 1;
+  min-width: 0;
+  height: 50px;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0 14px;
+  font-size: 15px;
+  color: #142033;
+}
+
+.gate-eye {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c8ba1;
+  flex-shrink: 0;
+}
+
+.gate-eye:hover {
+  background: #f1f5fa;
+  color: var(--azul);
+}
+
+.gate-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626;
+  background: #fdeaea;
+  border-radius: 10px;
+  padding: 10px 13px;
+  margin-top: 12px;
+  text-align: left;
+}
+
+.gate-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  font-size: 13.5px;
+  color: #44536b;
+  margin-top: 16px;
+}
+
+.gate-check-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1.5px solid #cbd7e4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.gate-check.on .gate-check-box {
+  background: var(--naranja);
+  border-color: var(--naranja);
+}
+
+.gate-submit {
+  width: 100%;
+  height: 54px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--naranja) 0%, #ff7a3c 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  box-shadow: 0 10px 24px rgba(240, 78, 35, 0.32);
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+
+.gate-submit:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.gate-submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.gate-submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.gate-or {
+  position: relative;
+  width: 100%;
+  margin: 18px 0 13px;
+  text-align: center;
+}
+
+.gate-or::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #e8eef6;
+}
+
+.gate-or span {
+  position: relative;
+  background: #fff;
+  padding: 0 12px;
+  font-size: 12.5px;
+  color: #94a3b8;
+}
+
+.gate-help {
+  font-size: 13px;
+  color: #5b6b82;
+  line-height: 1.5;
+}
+
+.gate-by {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid #eef3f8;
+  width: 100%;
+}
+
+.gate-by span {
+  font-size: 12px;
+  color: #8494a8;
+}
+
+.gate-by img {
+  height: 22px;
+  width: auto;
+}
+
+/* ── Franja y pie ─────────────────────────────────────────── */
+
+.gate-strip {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.92);
+  border-top: 1px solid #e4ecf5;
+  padding: 16px 0;
+}
+
+.gate-strip .container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.gate-strip-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--azul-medio);
+}
+
+.gate-strip-item + .gate-strip-item {
+  border-left: 1px solid #e4ecf5;
+  padding-left: 24px;
+}
+
+.gate-strip-item h4 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--azul);
+}
+
+.gate-strip-item p {
+  font-size: 12.5px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.gate-foot {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-top: 1px solid #eef3f8;
+  text-align: center;
+  padding: 15px 20px;
+  font-size: 12.5px;
+  color: #7a8798;
+}
+
+.gate-foot strong {
+  color: var(--azul);
+  font-weight: 600;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 1080px) {
+  .gate-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    max-width: 620px;
+  }
+  .gate-bg img {
+    width: 100%;
+    opacity: 0.5;
+  }
+  .gate-bg::after {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0.9) 100%
+    );
+  }
+  .gate-note,
+  .gate-progress-card {
+    max-width: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .gate-strip .container {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .gate-strip-item + .gate-strip-item {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid #e4ecf5;
+    padding-top: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .gate-body {
+    padding: 28px 18px;
+  }
+  .gate-card {
+    padding: 26px 20px 22px;
+  }
+  .gate-linkdicom {
+    height: 46px;
+  }
+}
