@@ -18,3 +18,6 @@ Thumbs.db
 
 # Documentos internos del cliente (actas, volcados SQL): nunca al repositorio
 nueva data/
+
+# Credenciales de acceso al entorno de desarrollo: solo en local
+CREDENCIALES-ACCESO.txt

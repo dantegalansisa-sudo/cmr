@@ -299,6 +299,11 @@
   margin-top: 24px;
 }
 
+/* el segundo campo va más pegado al primero */
+.gate-field-2 {
+  margin-top: 14px;
+}
+
 .gate-field-head {
   display: flex;
   align-items: center;

@@ -30,8 +30,14 @@ import {
  * protección de despliegue de Vercel (se resuelve en el servidor).
  */
 
-const HASH = '873890384dce6929773c109c9a495dd9ab58beb954ee3e8e0284387fdea5d37c'
-const KEY = 'linkxpace-acceso'
+// SHA-256 de "usuario:contraseña" (usuario en minúsculas). Para añadir una cuenta,
+// calcule ese hash y agréguelo aquí; las contraseñas nunca van en el código.
+const CUENTAS = [
+  '6703d03b79e2bafdc3ce06679ae478af61edcb70c30e988d05acdb14bd6d7bf8', // linkdicom
+]
+
+// v2: al pasar a usuario + contraseña, quien entró antes debe volver a identificarse
+const KEY = 'linkxpace-acceso-v2'
 
 const AVANCE = [
   { label: 'Diseño General', estado: 'completado', icon: Monitor },
@@ -60,6 +66,7 @@ async function sha256(text: string) {
 }
 
 export default function Gate({ onUnlock }: { onUnlock: () => void }) {
+  const [usuario, setUsuario] = useState('')
   const [clave, setClave] = useState('')
   const [visible, setVisible] = useState(false)
   const [recordar, setRecordar] = useState(true)
@@ -68,17 +75,17 @@ export default function Gate({ onUnlock }: { onUnlock: () => void }) {
 
   const enviar = async (e: FormEvent) => {
     e.preventDefault()
-    if (!clave || cargando) return
+    if (!usuario.trim() || !clave || cargando) return
 
     setCargando(true)
     setError('')
 
     try {
       if (!crypto?.subtle) throw new Error('sin-crypto')
-      const ok = (await sha256(clave)) === HASH
+      const ok = CUENTAS.includes(await sha256(`${usuario.trim().toLowerCase()}:${clave}`))
 
       if (!ok) {
-        setError('Contraseña incorrecta. Verifica e intenta de nuevo.')
+        setError('Usuario o contraseña incorrectos. Verifica e intenta de nuevo.')
         setClave('')
         return
       }
@@ -120,7 +127,7 @@ export default function Gate({ onUnlock }: { onUnlock: () => void }) {
               </span>
               <p>
                 Este sitio web se encuentra en etapa de desarrollo. Para visualizar el
-                desarrollo del mismo ingrese la contraseña de desarrollo.
+                desarrollo del mismo ingrese las credenciales de desarrollo.
               </p>
             </div>
 
@@ -162,7 +169,29 @@ export default function Gate({ onUnlock }: { onUnlock: () => void }) {
             <h2 className="gate-access">ACCESO EXCLUSIVO</h2>
             <p className="gate-env">ENTORNO DE DESARROLLO</p>
 
-            <label className="gate-field" htmlFor="clave">
+            <label className="gate-field" htmlFor="usuario">
+              <span className="gate-field-head">
+                <UserRound size={17} />
+                Usuario
+              </span>
+              <span className="gate-input">
+                <input
+                  id="usuario"
+                  value={usuario}
+                  autoFocus
+                  autoComplete="username"
+                  autoCapitalize="none"
+                  spellCheck={false}
+                  placeholder="Ingrese su usuario"
+                  onChange={(e) => {
+                    setUsuario(e.target.value)
+                    if (error) setError('')
+                  }}
+                />
+              </span>
+            </label>
+
+            <label className="gate-field gate-field-2" htmlFor="clave">
               <span className="gate-field-head">
                 <LockKeyhole size={17} />
                 Contraseña
@@ -172,7 +201,6 @@ export default function Gate({ onUnlock }: { onUnlock: () => void }) {
                   id="clave"
                   type={visible ? 'text' : 'password'}
                   value={clave}
-                  autoFocus
                   autoComplete="current-password"
                   placeholder="Ingrese su contraseña"
                   onChange={(e) => {
