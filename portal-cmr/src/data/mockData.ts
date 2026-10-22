@@ -1,39 +1,15 @@
 // ─────────────────────────────────────────────────────────────
-// CMR · Centro Médico Real — datos de demostración
-// Única fuente de datos. Nada de esto viene de un backend.
+// CMR · Centro Médico Real — datos de EJEMPLO del Portal del Paciente (fase 2)
+// El sitio público usa datos reales: ver institucion.ts y medicos.ts.
 // ─────────────────────────────────────────────────────────────
 
 export const BRAND = {
   name: 'CMR',
   fullName: 'Centro Médico Real',
   tagline: 'Salud con sentido humano.',
-  phone: '809-123-4567',
-  email: 'info@cmr.com.do',
+  phone: '809-537-3940',
+  email: 'cmr@cmr.com.do',
 }
-
-export const navLinks = [
-  'Inicio',
-  'Servicios',
-  'Especialidades',
-  'Médicos',
-  'Resultados',
-  'Centro Médico',
-  'Contacto',
-]
-
-export const heroStats = [
-  { value: 15, suffix: '', prefix: '+', label: 'Especialidades', icon: 'HeartPulse' },
-  { value: 50, suffix: '', prefix: '+', label: 'Médicos', icon: 'MapPin' },
-  { value: 10, suffix: 'K', prefix: '+', label: 'Pacientes', icon: 'Users' },
-  { value: 24, suffix: '/7', prefix: '', label: 'Atención en línea', icon: 'Clock' },
-]
-
-export const accesoRapido = [
-  { title: 'Agendar Cita', sub: 'Reserva tu consulta', icon: 'CalendarDays' },
-  { title: 'Resultados en Línea', sub: 'Laboratorio e imágenes', icon: 'FlaskConical' },
-  { title: 'Historia Clínica', sub: 'Consulta tu información', icon: 'FileText' },
-  { title: 'Prefacturación', sub: 'Ahorra tiempo en tu visita', icon: 'FileCheck' },
-]
 
 export const patient = {
   nombre: 'Juan Carlos',
@@ -99,9 +75,9 @@ export const integracionSistemas = [
 
 export const canalesAtencion = [
   { label: 'Chat en Línea', sub: 'Atención inmediata', icon: 'MessageCircle' },
-  { label: 'WhatsApp', sub: '809-123-4567', icon: 'Phone' },
-  { label: 'Llamada', sub: '809-123-4567', icon: 'PhoneCall' },
-  { label: 'Correo', sub: 'info@cmr.com.do', icon: 'Mail' },
+  { label: 'WhatsApp', sub: '809-537-3940', icon: 'Phone' },
+  { label: 'Llamada', sub: '809-537-3940', icon: 'PhoneCall' },
+  { label: 'Correo', sub: 'cmr@cmr.com.do', icon: 'Mail' },
 ]
 
 export const chatQuickReplies = ['Agendar cita', 'Resultados', 'Información general']
@@ -242,24 +218,6 @@ export const estudios: Estudio[] = [
     especialidad: 'Neurología',
     estado: 'disponible',
     thumb: 'cerebro',
-  },
-]
-
-export const footerColumns = [
-  {
-    title: 'Seguridad y Confidencialidad',
-    lines: ['Tus datos están protegidos con', 'tecnología de última generación.'],
-    icon: 'ShieldCheck',
-  },
-  {
-    title: 'Acceso 24/7',
-    lines: ['Disponible desde cualquier dispositivo,', 'cuando lo necesites.'],
-    icon: 'Clock',
-  },
-  {
-    title: 'Experiencia Integrada',
-    lines: ['Todos nuestros servicios conectados', 'para tu comodidad.'],
-    icon: 'Share2',
   },
 ]
 
@@ -797,160 +755,5 @@ export const sesiones = [
     lugar: 'Santo Domingo, RD',
     cuando: 'Hace 2 días',
     actual: false,
-  },
-]
-
-// ═════════════════════════════════════════════════════════════
-// LANDING — secciones públicas
-// ═════════════════════════════════════════════════════════════
-
-export const serviciosLanding = [
-  {
-    titulo: 'Consulta Médica',
-    desc: 'Atención con especialistas en más de 15 áreas, con agenda en línea y expediente digital.',
-    icon: 'Stethoscope',
-  },
-  {
-    titulo: 'Laboratorio Clínico',
-    desc: 'Análisis de sangre, orina y pruebas especializadas con resultados en línea en 24 horas.',
-    icon: 'FlaskConical',
-  },
-  {
-    titulo: 'Imágenes Diagnósticas',
-    desc: 'Radiografía, tomografía, resonancia, mamografía y ultrasonido con informe digital.',
-    icon: 'ScanLine',
-  },
-  {
-    titulo: 'Medicina Preventiva',
-    desc: 'Chequeos anuales, evaluación de riesgo y programas de seguimiento personalizado.',
-    icon: 'HeartPulse',
-  },
-  {
-    titulo: 'Vacunación',
-    desc: 'Esquema completo para niños y adultos, con carnet digital siempre disponible.',
-    icon: 'Syringe',
-  },
-  {
-    titulo: 'Procedimientos',
-    desc: 'Cirugía ambulatoria y procedimientos menores en quirófanos equipados.',
-    icon: 'BriefcaseMedical',
-  },
-  {
-    titulo: 'Emergencias 24/7',
-    desc: 'Sala de emergencias abierta todos los días del año con personal permanente.',
-    icon: 'Ambulance',
-  },
-  {
-    titulo: 'Telemedicina',
-    desc: 'Consultas por videollamada con los mismos especialistas del centro.',
-    icon: 'Video',
-  },
-]
-
-export const especialidades = [
-  { nombre: 'Cardiología', medicos: 6, icon: 'HeartPulse' },
-  { nombre: 'Pediatría', medicos: 8, icon: 'Baby' },
-  { nombre: 'Ginecología', medicos: 5, icon: 'Flower2' },
-  { nombre: 'Traumatología', medicos: 4, icon: 'Bone' },
-  { nombre: 'Neurología', medicos: 3, icon: 'Brain' },
-  { nombre: 'Dermatología', medicos: 4, icon: 'Sparkles' },
-  { nombre: 'Oftalmología', medicos: 3, icon: 'Eye' },
-  { nombre: 'Gastroenterología', medicos: 3, icon: 'Activity' },
-  { nombre: 'Neumología', medicos: 2, icon: 'Wind' },
-  { nombre: 'Endocrinología', medicos: 2, icon: 'Droplet' },
-  { nombre: 'Urología', medicos: 3, icon: 'Stethoscope' },
-  { nombre: 'Medicina General', medicos: 7, icon: 'UserRound' },
-]
-
-export const medicos = [
-  {
-    nombre: 'Dr. Carlos Méndez',
-    iniciales: 'CM',
-    especialidad: 'Cardiología',
-    exp: '18 años de experiencia',
-    rating: '4.9',
-    disponible: 'Lun · Mié · Vie',
-  },
-  {
-    nombre: 'Dra. Ana Rodríguez',
-    iniciales: 'AR',
-    especialidad: 'Neumología',
-    exp: '12 años de experiencia',
-    rating: '4.8',
-    disponible: 'Mar · Jue',
-  },
-  {
-    nombre: 'Dr. Luis Fernández',
-    iniciales: 'LF',
-    especialidad: 'Traumatología',
-    exp: '15 años de experiencia',
-    rating: '4.9',
-    disponible: 'Lun · Jue · Sáb',
-  },
-  {
-    nombre: 'Dra. María Gómez',
-    iniciales: 'MG',
-    especialidad: 'Gastroenterología',
-    exp: '10 años de experiencia',
-    rating: '4.7',
-    disponible: 'Mié · Vie',
-  },
-  {
-    nombre: 'Dra. Laura Sánchez',
-    iniciales: 'LS',
-    especialidad: 'Ginecología',
-    exp: '14 años de experiencia',
-    rating: '5.0',
-    disponible: 'Lun · Mar · Jue',
-  },
-  {
-    nombre: 'Dr. Pedro Ramírez',
-    iniciales: 'PR',
-    especialidad: 'Neurología',
-    exp: '20 años de experiencia',
-    rating: '4.8',
-    disponible: 'Mar · Vie',
-  },
-]
-
-export const centroFeatures = [
-  {
-    titulo: 'Tecnología de última generación',
-    desc: 'Equipos de imagenología y laboratorio de alta resolución.',
-    icon: 'Cpu',
-  },
-  {
-    titulo: 'Expediente 100% digital',
-    desc: 'Tu historia clínica disponible desde cualquier dispositivo.',
-    icon: 'FileText',
-  },
-  {
-    titulo: 'Convenios con las principales ARS',
-    desc: 'Humano, Senasa, Universal, Mapfre y más.',
-    icon: 'ShieldCheck',
-  },
-  {
-    titulo: 'Estacionamiento y accesibilidad',
-    desc: 'Parqueo techado y accesos adaptados en todo el edificio.',
-    icon: 'Accessibility',
-  },
-]
-
-export const horarios = [
-  { dia: 'Lunes a Viernes', hora: '7:00 AM – 8:00 PM' },
-  { dia: 'Sábados', hora: '8:00 AM – 4:00 PM' },
-  { dia: 'Domingos', hora: '8:00 AM – 12:00 PM' },
-  { dia: 'Emergencias', hora: 'Abierto 24/7' },
-]
-
-export const contactoInfo = [
-  { label: 'Teléfono', value: '809-123-4567', sub: 'Lunes a sábado', icon: 'PhoneCall' },
-  { label: 'WhatsApp', value: '809-123-4567', sub: 'Respuesta en minutos', icon: 'Phone' },
-  { label: 'Correo', value: 'info@cmr.com.do', sub: 'Respondemos en 24h', icon: 'Mail' },
-  {
-    label: 'Dirección',
-    value: 'Av. Winston Churchill #123',
-    sub: 'Santo Domingo, RD',
-    icon: 'MapPin',
   },
 ]

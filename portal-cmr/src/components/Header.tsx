@@ -1,64 +1,143 @@
-import { UserRound, CalendarPlus, ArrowRight } from 'lucide-react'
-import { navLinks } from '../data/mockData'
-import type { View } from '../App'
+import { useState, useEffect } from 'react'
+import { Siren, Phone, Camera, FlaskConical, UserRound, Menu, X, ArrowUpRight } from 'lucide-react'
+import { CMR, emergencias } from '../data/institucion'
+import { esPortal } from '../rutas'
+import type { View, Navegar } from '../rutas'
 
 type Props = {
   view: View
-  onNavigate: (v: View) => void
-  onScrollTo: (id: string) => void
+  onNavigate: Navegar
 }
 
-/** Cada link del nav apunta a una vista o a una sección del landing */
-const LINK_TARGET: Record<string, { view?: View; section?: string }> = {
-  Inicio: { view: 'landing' },
-  Servicios: { section: 'servicios' },
-  Especialidades: { section: 'especialidades' },
-  Médicos: { section: 'medicos' },
-  Resultados: { view: 'resultados' },
-  'Centro Médico': { section: 'centro' },
-  Contacto: { section: 'contacto' },
-}
+const NAV: { label: string; view: View }[] = [
+  { label: 'Inicio', view: 'landing' },
+  { label: 'Nosotros', view: 'nosotros' },
+  { label: 'Servicios', view: 'servicios' },
+  { label: 'Especialistas', view: 'especialistas' },
+  { label: 'Emergencias', view: 'emergencias' },
+  { label: 'Contacto', view: 'contacto' },
+]
 
-export default function Header({ view, onNavigate, onScrollTo }: Props) {
-  const activeLink = view === 'resultados' ? 'Resultados' : view === 'landing' ? 'Inicio' : ''
+const rango = (ext: string[]) => `${ext[0]}–${ext[ext.length - 1]}`
+
+export default function Header({ view, onNavigate }: Props) {
+  const [abierto, setAbierto] = useState(false)
+
+  // Cerrar el menú móvil al cambiar de página
+  useEffect(() => setAbierto(false), [view])
+
+  const ir = (v: View) => {
+    setAbierto(false)
+    onNavigate(v)
+  }
 
   return (
-    <header className="site-header">
-      <div className="container">
-        <button onClick={() => onNavigate('landing')} aria-label="Ir al inicio">
-          <img className="logo-img" src="/images/logo.png" alt="CMR — Centro Médico Real" />
-        </button>
-
-        <nav className="header-nav">
-          {navLinks.map((link) => {
-            const target = LINK_TARGET[link]
-            return (
-              <button
-                key={link}
-                className={`nav-link${link === activeLink ? ' active' : ''}`}
-                onClick={() => {
-                  if (target?.view) onNavigate(target.view)
-                  else if (target?.section) onScrollTo(target.section)
-                }}
-              >
-                {link}
-              </button>
-            )
-          })}
-        </nav>
-
-        <div className="header-actions">
-          <button className="btn btn-navy" onClick={() => onNavigate('dashboard')}>
-            <UserRound size={17} />
-            Portal del Paciente
+    <>
+      <div className="topbar">
+        <div className="container topbar-in">
+          <button className="topbar-urg" onClick={() => ir('emergencias')}>
+            <Siren size={15} />
+            <strong>Emergencias 24/7</strong>
+            <span className="topbar-ext">
+              Adultos ext. {rango(emergencias.adultos)} · Pediátricas ext. {rango(emergencias.pediatricas)}
+            </span>
           </button>
-          <button className="btn btn-green">
-            <CalendarPlus size={17} />
-            Agendar Cita
-            <ArrowRight size={15} />
-          </button>
+
+          <div className="topbar-links">
+            <a href={CMR.telefonoHref}>
+              <Phone size={14} />
+              {CMR.telefono}
+            </a>
+            <a href={CMR.instagram} target="_blank" rel="noopener noreferrer">
+              <Camera size={14} />
+              <span className="topbar-hide-sm">{CMR.instagramUsuario}</span>
+            </a>
+          </div>
         </div>
       </div>
-    </header>
+
+      <header className="site-header">
+        <div className="container">
+          <button onClick={() => ir('landing')} aria-label="Ir al inicio">
+            <img className="logo-img" src="/images/logo.png" alt="CMR — Centro Médico Real" />
+          </button>
+
+          <nav className="header-nav" aria-label="Principal">
+            {NAV.map((n) => (
+              <button
+                key={n.view}
+                className={`nav-link${view === n.view ? ' active' : ''}`}
+                onClick={() => ir(n.view)}
+              >
+                {n.label}
+              </button>
+            ))}
+          </nav>
+
+          <div className="header-actions">
+            <a
+              className="btn btn-green"
+              href={CMR.resultadosUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FlaskConical size={17} />
+              Resultados en línea
+            </a>
+            <button
+              className={`btn btn-navy${esPortal(view) ? ' is-on' : ''}`}
+              onClick={() => ir('dashboard')}
+            >
+              <UserRound size={17} />
+              Portal del Paciente
+              <span className="fase-chip">Fase 2</span>
+            </button>
+          </div>
+
+          <button
+            className="menu-btn"
+            onClick={() => setAbierto((v) => !v)}
+            aria-expanded={abierto}
+            aria-label={abierto ? 'Cerrar menú' : 'Abrir menú'}
+          >
+            {abierto ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+
+        {abierto && (
+          <div className="mobile-menu">
+            <div className="container">
+              {NAV.map((n) => (
+                <button
+                  key={n.view}
+                  className={`mobile-link${view === n.view ? ' active' : ''}`}
+                  onClick={() => ir(n.view)}
+                >
+                  {n.label}
+                </button>
+              ))}
+
+              <div className="mobile-actions">
+                <a
+                  className="btn btn-green"
+                  href={CMR.resultadosUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FlaskConical size={17} />
+                  Resultados en línea
+                  <ArrowUpRight size={15} />
+                </a>
+                <button className="btn btn-navy" onClick={() => ir('dashboard')}>
+                  <UserRound size={17} />
+                  Portal del Paciente
+                  <span className="fase-chip">Fase 2</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   )
 }

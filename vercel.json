@@ -2,5 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "cd portal-cmr && npm install",
   "buildCommand": "cd portal-cmr && npm run build",
-  "outputDirectory": "portal-cmr/dist"
+  "outputDirectory": "portal-cmr/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

@@ -28,6 +28,7 @@ import {
   formValues,
   beneficios,
 } from '../data/mockData'
+import { CMR } from '../data/institucion'
 import type { View } from '../App'
 
 const STEP_ICONS = {
@@ -293,12 +294,12 @@ export default function Prefacturacion({ onNavigate }: Props) {
                   <div className="help-tile">
                     <Phone size={19} color="#16A34A" />
                     <h5>WhatsApp</h5>
-                    <p>809-123-4567</p>
+                    <p>{CMR.telefono}</p>
                   </div>
                   <div className="help-tile">
                     <PhoneCall size={19} color="#1E5EFF" />
                     <h5>Llamada</h5>
-                    <p>809-123-4567</p>
+                    <p>{CMR.telefono}</p>
                   </div>
                 </div>
               </div>
